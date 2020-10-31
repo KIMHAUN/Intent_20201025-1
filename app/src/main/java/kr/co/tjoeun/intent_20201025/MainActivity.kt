@@ -2,6 +2,7 @@ package kr.co.tjoeun.intent_20201025
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
@@ -40,9 +41,39 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        dialBtn.setOnClickListener {
+
+//            전화를 어디에(입력값추출) 연결할지, 연결 정보(Uri)를 변수에 저장.
+            val inputPhoneNum = phoneEdt.text.toString()
+//            tel: + 입력한폰번 = "tel:${입력한폰번}"
+            val myUri = Uri.parse("tel:${inputPhoneNum}")
+
+//            어느 화면으로 이동할지? Intent
+            val myIntent = Intent(Intent.ACTION_DIAL, myUri)
+
+            startActivity(myIntent)
+
+        }
+
+        callBtn.setOnClickListener {
+
+            val inputPhoneNum = phoneEdt.text.toString()
+            val myUri = Uri.parse("tel:${inputPhoneNum}")
+            val myIntent = Intent(Intent.ACTION_CALL, myUri)
+            startActivity(myIntent)
+
+        }
+
         changeTextBtn.setOnClickListener {
             val myIntent = Intent(this, EditDataActivity::class.java)
             startActivityForResult(myIntent, REQ_FOR_DATA)
+        }
+        smsBtn.setOnClickListener {
+            val inputPhoneNum = phoneEdt.text.toString()
+            val myUri = Uri.parse("smsto:${inputPhoneNum}")
+            val myIntent = Intent(Intent.ACTION_SENDTO, myUri)
+            myIntent.putExtra("sms_body", "[홍보문자] 미리 작성한 문구")
+            startActivity(myIntent)
         }
 
     }
