@@ -76,6 +76,21 @@ class MainActivity : AppCompatActivity() {
             startActivity(myIntent)
         }
 
+        naverBtn.setOnClickListener {
+
+            val myUri = Uri.parse("https://naver.com")
+            val myIntent = Intent(Intent.ACTION_VIEW, myUri)
+            startActivity(myIntent)
+            //광고, 이용약관, 스토어
+        }
+
+        kakaoStoreBtn.setOnClickListener {
+            //업데이트용
+            val myUri = Uri.parse("market://details?id=com.kakao.talk")
+            val myIntent = Intent(Intent.ACTION_VIEW, myUri)
+            startActivity(myIntent)
+        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
